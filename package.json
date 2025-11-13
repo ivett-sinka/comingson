@@ -1,0 +1,21 @@
+{
+  "name": "comingson-figma-integration",
+  "version": "1.0.0",
+  "description": "Figma integration for ComingSon project",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node src/test-figma-connection.js",
+    "start": "node src/index.js"
+  },
+  "keywords": [
+    "figma",
+    "api"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "dotenv": "^17.2.3"
+  }
+}
