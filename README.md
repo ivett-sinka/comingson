@@ -1,6 +1,16 @@
 # ComingSon - Figma Integration
 
-This project provides Figma API integration for the ComingSon project.
+This project provides Figma API integration for the ComingSon project, including MCP (Model Context Protocol) server support.
+
+## MCP Server Configuration
+
+The Figma MCP server has been configured with HTTP transport:
+
+```bash
+claude mcp add --transport http figma https://mcp.figma.com/mcp
+```
+
+This configuration is stored in `~/.config/claude/config.json` and enables Claude to interact with Figma through the MCP protocol.
 
 ## Setup
 
