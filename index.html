@@ -3,29 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ComingSon - Animated Greeting</title>
+    <title>Sinka Ivett - UI/UX és webdesign</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Animated background shapes -->
-    <div class="background">
-        <div class="shape circle circle-1"></div>
-        <div class="shape circle circle-2"></div>
-        <div class="shape circle circle-3"></div>
-        <div class="shape square square-1"></div>
-        <div class="shape square square-2"></div>
-        <div class="shape triangle triangle-1"></div>
-        <div class="shape triangle triangle-2"></div>
-        <div class="shape line line-1"></div>
-        <div class="shape line line-2"></div>
-        <div class="shape line line-3"></div>
+    <!-- Geometric line pattern background -->
+    <div class="background-pattern"></div>
+
+    <!-- Logo -->
+    <div class="logo">
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M60 0C60 33.1371 33.1371 60 0 60V120C66.2742 120 120 66.2742 120 0H60Z" fill="url(#gradient)"/>
+            <defs>
+                <linearGradient id="gradient" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#B14DC7"/>
+                    <stop offset="100%" stop-color="#7C3E9E"/>
+                </linearGradient>
+            </defs>
+        </svg>
     </div>
 
     <!-- Main content -->
     <div class="container">
-        <div class="greeting-wrapper">
-            <h1 class="greeting" id="greeting"></h1>
-            <span class="cursor">|</span>
+        <div class="greeting-small">
+            <span id="greeting" class="greeting-text"></span><span class="comma">,</span><span class="cursor">|</span>
+        </div>
+
+        <h1 class="main-heading">Sinka Ivett vagyok</h1>
+
+        <p class="subtitle">A weboldalam készül, hamarosan találkozunk!</p>
+
+        <div class="divider"></div>
+
+        <p class="description">
+            Brand stratégiától a kész felületig átgondolt dizájnnal fogom átalakítani<br>
+            digitális jelenléted.
+        </p>
+
+        <div class="specialization">
+            <span class="line-left"></span>
+            <span class="text">UI/UX és webdesign</span>
+            <span class="line-right"></span>
         </div>
     </div>
 

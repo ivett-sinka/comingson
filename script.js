@@ -1,5 +1,5 @@
 // Greetings array in different languages
-const greetings = ['Szia', 'Hola', 'Bonjour'];
+const greetings = ['Hello', 'Szia', 'Hola', 'Bonjour'];
 let currentGreetingIndex = 0;
 let currentCharIndex = 0;
 let isDeleting = false;
@@ -56,5 +56,5 @@ function typeWriter() {
 
 // Start the animation when page loads
 window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(typeWriter, 500); // Start after small delay
+    setTimeout(typeWriter, 1000); // Start after page load animation
 });
