@@ -4,8 +4,8 @@ async function fetchDesign() {
   console.log('🎨 Fetching Figma design...\n');
 
   // A Figma fájl kulcsa az URL-ből:
-  // https://www.figma.com/design/1PQxriE3LMiq0XCvOVG2XP/Coming-Soon-page
-  const fileKey = '1PQxriE3LMiq0XCvOVG2XP';
+  // https://www.figma.com/design/uIykP1YH3jxrbYkFY3neod/Coming-Soon-page--Copy-
+  const fileKey = 'uIykP1YH3jxrbYkFY3neod';
   const nodeId = '1-2'; // node-id=1-2 az URL-ből
 
   try {
