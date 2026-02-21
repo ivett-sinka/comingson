@@ -32,7 +32,7 @@
     header {
       position: fixed;
       inset: 0 0 auto 0;
-      z-index: 100;
+      z-index: 300; /* must be above mobile-menu (150) so hamburger/X stays visible */
       background: rgba(15, 15, 15, 0.85);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(200, 169, 110, 0.12);
@@ -105,8 +105,8 @@
       background: none;
       border: none;
       cursor: pointer;
-      z-index: 200;
       position: relative;
+      /* no z-index needed here – the parent header (z-index:300) handles stacking */
     }
 
     .hamburger .bar {
@@ -116,22 +116,31 @@
       background: var(--clr-text);
       border-radius: 4px;
       transform-origin: center;
+      /*
+        gap = 6px, bar height = 2.5px
+        center-to-center distance between bar1 and bar3:
+          (2.5/2) + 6 + 2.5 + 6 + (2.5/2) = 17px  →  half = 8.5px
+      */
       transition:
         transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
-        opacity   0.25s ease,
-        top       0.45s cubic-bezier(0.23, 1, 0.32, 1);
+        opacity   0.2s  ease;
     }
 
-    /* X state */
+    /* ── X state ── */
+    /* bar 1 slides down 8.5px to the center, then rotates 45° */
     .hamburger.open .bar:nth-child(1) {
       transform: translateY(8.5px) rotate(45deg);
     }
 
+    /* bar 2 fades out – no scale so there's no width-collapse artifact */
     .hamburger.open .bar:nth-child(2) {
       opacity: 0;
-      transform: scaleX(0);
+      transition:
+        opacity   0.15s ease,
+        transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
+    /* bar 3 slides up 8.5px to the center, then rotates -45° */
     .hamburger.open .bar:nth-child(3) {
       transform: translateY(-8.5px) rotate(-45deg);
     }
