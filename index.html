@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SI – Portfólió</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --clr-bg: #0f0f0f;
+      --clr-surface: #1a1a1a;
+      --clr-accent: #c8a96e;
+      --clr-text: #f0ede8;
+      --clr-muted: #888;
+      --nav-height: 72px;
+      --breakpoint: 968px;
+    }
+
+    body {
+      background: var(--clr-bg);
+      color: var(--clr-text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER / NAV ─────────────────────────────────── */
+    header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      background: rgba(15, 15, 15, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(200, 169, 110, 0.12);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: var(--nav-height);
+    }
+
+    .nav-logo {
+      height: 40px;
+      width: auto;
+      display: block;
+    }
+
+    /* ── DESKTOP LINKS ───────────────────────────────── */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--clr-text);
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 0.25s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 1px;
+      background: var(--clr-accent);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--clr-accent);
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* ── HAMBURGER BUTTON ────────────────────────────── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      width: 50px;
+      height: 50px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 200;
+      position: relative;
+    }
+
+    .hamburger .bar {
+      display: block;
+      width: 28px;
+      height: 2.5px;
+      background: var(--clr-text);
+      border-radius: 4px;
+      transform-origin: center;
+      transition:
+        transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+        opacity   0.25s ease,
+        top       0.45s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    /* X state */
+    .hamburger.open .bar:nth-child(1) {
+      transform: translateY(8.5px) rotate(45deg);
+    }
+
+    .hamburger.open .bar:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .hamburger.open .bar:nth-child(3) {
+      transform: translateY(-8.5px) rotate(-45deg);
+    }
+
+    /* ── MOBILE OVERLAY MENU ─────────────────────────── */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--clr-bg);
+      z-index: 150;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem 2.5rem;
+      transform: translateX(100%);
+      transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      overflow-y: auto;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    /* decorative accent line */
+    .mobile-menu::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 15%;
+      bottom: 15%;
+      width: 3px;
+      background: linear-gradient(to bottom, transparent, var(--clr-accent), transparent);
+      border-radius: 0 2px 2px 0;
+    }
+
+    .mobile-nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .mobile-nav-links li {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .mobile-nav-links li:first-child {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .mobile-nav-links a {
+      display: block;
+      padding: 1.35rem 0.5rem;
+      text-decoration: none;
+      color: var(--clr-text);
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.25s, padding-left 0.3s ease;
+    }
+
+    .mobile-nav-links a:hover {
+      color: var(--clr-accent);
+      padding-left: 1rem;
+    }
+
+    /* ── CONTACT INFO (mobile only) ──────────────────── */
+    .mobile-contact {
+      margin-top: 2.5rem;
+      padding-left: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .mobile-contact a {
+      text-decoration: none;
+      color: var(--clr-muted);
+      font-size: 0.9rem;
+      letter-spacing: 0.03em;
+      transition: color 0.25s;
+    }
+
+    .mobile-contact a:hover {
+      color: var(--clr-accent);
+    }
+
+    .mobile-contact .contact-label {
+      display: inline-block;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--clr-accent);
+      margin-bottom: 0.2rem;
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 968px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    @media (min-width: 969px) {
+      .mobile-menu {
+        display: none;
+      }
+    }
+
+    /* ── DEMO CONTENT ────────────────────────────────── */
+    main {
+      padding-top: calc(var(--nav-height) + 4rem);
+      max-width: 1280px;
+      margin: 0 auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      min-height: 100vh;
+    }
+
+    main h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 200;
+      letter-spacing: 0.05em;
+      color: var(--clr-text);
+    }
+
+    main h1 span {
+      color: var(--clr-accent);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="nav">
+      <a href="#">
+        <img
+          src="https://www.figma.com/api/mcp/asset/ddc14c15-15a1-4460-b878-e48f296bde61"
+          alt="SI logo"
+          class="nav-logo"
+        >
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="nav-links">
+        <li><a href="#about">Rólam</a></li>
+        <li><a href="#portfolio">Portfólió</a></li>
+        <li><a href="#contact">Kapcsolat</a></li>
+      </ul>
+
+      <!-- Hamburger trigger -->
+      <button class="hamburger" aria-label="Menü megnyitása" aria-expanded="false" aria-controls="mobileMenu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Mobile overlay menu -->
+  <nav class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <ul class="mobile-nav-links">
+      <li><a href="#about"   class="mobile-link">Rólam</a></li>
+      <li><a href="#portfolio" class="mobile-link">Portfólió</a></li>
+      <li><a href="#contact"  class="mobile-link">Kapcsolat</a></li>
+    </ul>
+
+    <div class="mobile-contact">
+      <span class="contact-label">Elérhetőség</span>
+      <a href="tel:+36301234567">+36 30 123 4567</a>
+      <a href="mailto:hello@example.com">hello@example.com</a>
+    </div>
+  </nav>
+
+  <main>
+    <h1>Szia, <span>itt a nevem</span></h1>
+  </main>
+
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function openMenu() {
+      hamburger.classList.add('open');
+      mobileMenu.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+    });
+
+    // close when a link is clicked
+    mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+    // close on Escape key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeMenu();
+    });
+  </script>
+
+</body>
+</html>
