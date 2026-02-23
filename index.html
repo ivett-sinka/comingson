@@ -277,6 +277,203 @@
     main h1 span {
       color: var(--clr-accent);
     }
+
+    /* ── PORTFOLIO SECTION ───────────────────────────── */
+    .portfolio-section {
+      margin-top: 4rem;
+    }
+
+    .portfolio-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .portfolio-row-top,
+    .portfolio-row-bottom {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .portfolio-row-top {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .portfolio-row-bottom {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* ── P-ITEM: hover overlay (::after) + plus button (::before) ── */
+    .p-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    .p-item img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(0%) brightness(1);
+      transition: filter 0.4s ease;
+    }
+
+    /* dark greyscale overlay */
+    .p-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 15, 15, 0);
+      transition: background 0.4s ease;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* + button */
+    .p-item::before {
+      content: '+';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.6);
+      z-index: 3;
+      width: 52px;
+      height: 52px;
+      border: 1.5px solid var(--clr-accent);
+      border-radius: 50%;
+      color: var(--clr-accent);
+      font-size: 2rem;
+      font-weight: 200;
+      line-height: 50px;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+    }
+
+    .p-item:hover img {
+      filter: grayscale(90%) brightness(0.55);
+    }
+
+    .p-item:hover::after {
+      background: rgba(15, 15, 15, 0.45);
+    }
+
+    .p-item:hover::before {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* ── PORTFOLIO RESPONSIVE ────────────────────────── */
+    @media (max-width: 968px) {
+      .portfolio-row-top {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .portfolio-row-top {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .portfolio-row-bottom {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* ── LIGHTBOX ────────────────────────────────────── */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(0, 0, 0, 0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    #lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    #lb-img {
+      max-width: min(90vw, 1100px);
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 10px;
+      display: block;
+      transition: opacity 0.22s ease;
+    }
+
+    /* shared button base */
+    .lb-btn {
+      position: fixed;
+      width: 48px;
+      height: 48px;
+      background: none;
+      border: 1px solid rgba(240, 237, 232, 0.18);
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--clr-text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+      z-index: 501;
+    }
+
+    .lb-btn:hover {
+      border-color: var(--clr-accent);
+      color: var(--clr-accent);
+    }
+
+    .lb-close {
+      top: 1.5rem;
+      right: 1.5rem;
+    }
+
+    .lb-close:hover {
+      transform: rotate(90deg);
+    }
+
+    .lb-prev {
+      top: 50%;
+      left: 1.5rem;
+      transform: translateY(-50%);
+    }
+
+    .lb-next {
+      top: 50%;
+      right: 1.5rem;
+      transform: translateY(-50%);
+    }
+
+    .lb-prev:hover {
+      transform: translateY(-50%) translateX(-3px);
+      border-color: var(--clr-accent);
+      color: var(--clr-accent);
+    }
+
+    .lb-next:hover {
+      transform: translateY(-50%) translateX(3px);
+      border-color: var(--clr-accent);
+      color: var(--clr-accent);
+    }
+
+    @media (max-width: 600px) {
+      .lb-btn {
+        width: 40px;
+        height: 40px;
+      }
+      .lb-prev { left: 0.5rem; }
+      .lb-next { right: 0.5rem; }
+      .lb-close { top: 1rem; right: 1rem; }
+    }
   </style>
 </head>
 <body>
@@ -324,7 +521,85 @@
 
   <main>
     <h1>Szia, <span>itt a nevem</span></h1>
+
+    <section id="portfolio" class="portfolio-section">
+      <div class="portfolio-grid">
+        <!-- Row 1 – 4 images -->
+        <div class="portfolio-row-top">
+          <div class="p-item">
+            <img src="img/illustration-dilanda.jpg" alt="Dilanda portré digitális illusztráció">
+          </div>
+          <div class="p-item">
+            <img src="img/illustration-csaladi-portre.jpg" alt="Családi portré digitális illusztráció">
+          </div>
+          <div class="p-item">
+            <img src="img/illustration-nagyszulok.jpg" alt="Nagyszülőknél digitális illusztráció">
+          </div>
+          <div class="p-item">
+            <img src="img/illustration-terapia.jpg" alt="Terápia digitális illusztráció">
+          </div>
+        </div>
+        <div class="portfolio-row-top">
+          <div class="p-item">
+            <img src="img/illustration-juhász.jpg" alt="Juhász portré grafitceruza rajz">
+          </div>
+          <div class="p-item">
+            <img src="img/illustration-kutya-portre.jpg" alt="Kutya portré grafitceruza rajz">
+          </div>
+          <div class="p-item">
+            <img src="img/illustration-ugro.jpg" alt="Ugró ló digitális illusztráció">
+          </div>
+          <div class="p-item">
+            <img src="img/illustration-konyv-borito.jpg" alt="Könyvborító digitális illusztráció">
+          </div>
+        </div>
+        <!-- Row 2 – 2 images -->
+        <div class="portfolio-row-bottom">
+          <div class="p-item">
+            <img src="img/Illusztration-depeche.jpg" alt="Depeche Mode portré digitális illusztráció">
+          </div>
+          <div class="p-item">
+            <img src="img/illustration-kismadár.jpg" alt="Kismadár digitális illusztráció">
+          </div>
+        </div>
+        <div class="portfolio-row-bottom">
+          <div class="p-item">
+            <img src="img/illustration-róka.jpg" alt="Róka grafitceruza rajz">
+          </div>
+          <div class="p-item">
+            <img src="img/illustration-vaddiszno.jpg" alt="Vaddisznó grafitceruza rajz">
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Képnézegető">
+    <!-- Close button – X (hamburger-stílusú vékony vonalak) -->
+    <button class="lb-btn lb-close" id="lb-close" aria-label="Bezárás">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="1.5" y1="1.5" x2="16.5" y2="16.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="16.5" y1="1.5" x2="1.5" y2="16.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <!-- Prev arrow – bal chevron -->
+    <button class="lb-btn lb-prev" id="lb-prev" aria-label="Előző kép">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="11,3 5,9 11,15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <img id="lb-img" src="" alt="">
+
+    <!-- Next arrow – jobb chevron -->
+    <button class="lb-btn lb-next" id="lb-next" aria-label="Következő kép">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="7,3 13,9 7,15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
 
   <script>
     const hamburger = document.querySelector('.hamburger');
@@ -357,6 +632,56 @@
     // close on Escape key
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') closeMenu();
+    });
+
+    /* ── LIGHTBOX ────────────────────────────────────── */
+    const pItems  = [...document.querySelectorAll('.p-item')];
+    const lbImages = pItems.map(item => item.querySelector('img'));
+    const lightbox = document.getElementById('lightbox');
+    const lbImg    = document.getElementById('lb-img');
+    let lbIndex    = 0;
+
+    function lbOpen(index) {
+      lbIndex = index;
+      lbImg.src = lbImages[index].src;
+      lbImg.alt = lbImages[index].alt;
+      lbImg.style.opacity = '1';
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function lbClose() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function lbNavigate(dir) {
+      lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+      lbImg.style.opacity = '0';
+      setTimeout(() => {
+        lbImg.src = lbImages[lbIndex].src;
+        lbImg.alt = lbImages[lbIndex].alt;
+        lbImg.style.opacity = '1';
+      }, 220);
+    }
+
+    pItems.forEach((item, i) => item.addEventListener('click', () => lbOpen(i)));
+
+    document.getElementById('lb-close').addEventListener('click', lbClose);
+    document.getElementById('lb-prev').addEventListener('click', () => lbNavigate(-1));
+    document.getElementById('lb-next').addEventListener('click', () => lbNavigate(1));
+
+    // kattintás a háttérre → bezár
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) lbClose();
+    });
+
+    // billentyűzet
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape')     lbClose();
+      if (e.key === 'ArrowLeft')  lbNavigate(-1);
+      if (e.key === 'ArrowRight') lbNavigate(1);
     });
   </script>
 
