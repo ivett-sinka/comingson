@@ -303,15 +303,15 @@
       grid-template-columns: repeat(2, 1fr);
     }
 
-    /* ── P-ITEM: hover overlay (::after) + plus button (::before) ── */
-    .p-item {
+    /* ── DARK-P-ITEM: hover overlay (::after) + plus button (::before) ── */
+    .dark-p-item {
       position: relative;
       overflow: hidden;
       cursor: pointer;
       border-radius: 3px;
     }
 
-    .p-item img {
+    .dark-p-item img {
       display: block;
       width: 100%;
       height: 100%;
@@ -321,7 +321,7 @@
     }
 
     /* dark greyscale overlay */
-    .p-item::after {
+    .dark-p-item::after {
       content: '';
       position: absolute;
       inset: 0;
@@ -332,7 +332,7 @@
     }
 
     /* + button */
-    .p-item::before {
+    .dark-p-item::before {
       content: '+';
       position: absolute;
       top: 50%;
@@ -353,15 +353,15 @@
       pointer-events: none;
     }
 
-    .p-item:hover img {
+    .dark-p-item:hover img {
       filter: grayscale(90%) brightness(0.55);
     }
 
-    .p-item:hover::after {
+    .dark-p-item:hover::after {
       background: rgba(15, 15, 15, 0.45);
     }
 
-    .p-item:hover::before {
+    .dark-p-item:hover::before {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
     }
@@ -526,47 +526,47 @@
       <div class="portfolio-grid">
         <!-- Row 1 – 4 images -->
         <div class="portfolio-row-top">
-          <div class="p-item">
+          <div class="dark-p-item">
             <img src="img/illustration-dilanda.jpg" alt="Dilanda portré digitális illusztráció">
           </div>
-          <div class="p-item">
+          <div class="dark-p-item">
             <img src="img/illustration-csaladi-portre.jpg" alt="Családi portré digitális illusztráció">
           </div>
-          <div class="p-item">
+          <div class="dark-p-item">
             <img src="img/illustration-nagyszulok.jpg" alt="Nagyszülőknél digitális illusztráció">
           </div>
-          <div class="p-item">
+          <div class="dark-p-item">
             <img src="img/illustration-terapia.jpg" alt="Terápia digitális illusztráció">
           </div>
         </div>
         <div class="portfolio-row-top">
-          <div class="p-item">
+          <div class="dark-p-item">
             <img src="img/illustration-juhász.jpg" alt="Juhász portré grafitceruza rajz">
           </div>
-          <div class="p-item">
+          <div class="dark-p-item">
             <img src="img/illustration-kutya-portre.jpg" alt="Kutya portré grafitceruza rajz">
           </div>
-          <div class="p-item">
+          <div class="dark-p-item">
             <img src="img/illustration-ugro.jpg" alt="Ugró ló digitális illusztráció">
           </div>
-          <div class="p-item">
+          <div class="dark-p-item">
             <img src="img/illustration-konyv-borito.jpg" alt="Könyvborító digitális illusztráció">
           </div>
         </div>
         <!-- Row 2 – 2 images -->
         <div class="portfolio-row-bottom">
-          <div class="p-item">
+          <div class="dark-p-item">
             <img src="img/Illusztration-depeche.jpg" alt="Depeche Mode portré digitális illusztráció">
           </div>
-          <div class="p-item">
+          <div class="dark-p-item">
             <img src="img/illustration-kismadár.jpg" alt="Kismadár digitális illusztráció">
           </div>
         </div>
         <div class="portfolio-row-bottom">
-          <div class="p-item">
+          <div class="dark-p-item">
             <img src="img/illustration-róka.jpg" alt="Róka grafitceruza rajz">
           </div>
-          <div class="p-item">
+          <div class="dark-p-item">
             <img src="img/illustration-vaddiszno.jpg" alt="Vaddisznó grafitceruza rajz">
           </div>
         </div>
@@ -633,57 +633,9 @@
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') closeMenu();
     });
-
-    /* ── LIGHTBOX ────────────────────────────────────── */
-    const pItems  = [...document.querySelectorAll('.p-item')];
-    const lbImages = pItems.map(item => item.querySelector('img'));
-    const lightbox = document.getElementById('lightbox');
-    const lbImg    = document.getElementById('lb-img');
-    let lbIndex    = 0;
-
-    function lbOpen(index) {
-      lbIndex = index;
-      lbImg.src = lbImages[index].src;
-      lbImg.alt = lbImages[index].alt;
-      lbImg.style.opacity = '1';
-      lightbox.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function lbClose() {
-      lightbox.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    function lbNavigate(dir) {
-      lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
-      lbImg.style.opacity = '0';
-      setTimeout(() => {
-        lbImg.src = lbImages[lbIndex].src;
-        lbImg.alt = lbImages[lbIndex].alt;
-        lbImg.style.opacity = '1';
-      }, 220);
-    }
-
-    pItems.forEach((item, i) => item.addEventListener('click', () => lbOpen(i)));
-
-    document.getElementById('lb-close').addEventListener('click', lbClose);
-    document.getElementById('lb-prev').addEventListener('click', () => lbNavigate(-1));
-    document.getElementById('lb-next').addEventListener('click', () => lbNavigate(1));
-
-    // kattintás a háttérre → bezár
-    lightbox.addEventListener('click', e => {
-      if (e.target === lightbox) lbClose();
-    });
-
-    // billentyűzet
-    document.addEventListener('keydown', e => {
-      if (!lightbox.classList.contains('active')) return;
-      if (e.key === 'Escape')     lbClose();
-      if (e.key === 'ArrowLeft')  lbNavigate(-1);
-      if (e.key === 'ArrowRight') lbNavigate(1);
-    });
   </script>
+
+  <script src="lightbox.js"></script>
 
 </body>
 </html>
